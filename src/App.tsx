@@ -210,13 +210,13 @@ export default function App() {
       </header>
 
       <main className="h-[calc(100svh-76px)] overflow-hidden">
-        <div className="mx-auto grid h-full max-w-7xl grid-rows-[auto_1fr_auto] gap-4 px-5 py-4 lg:grid-cols-[0.95fr_1.05fr] lg:grid-rows-1 lg:gap-10 lg:px-8 lg:py-8">
-          <section className="relative hidden min-h-0 items-center justify-center lg:flex">
-            <div className="relative w-full max-w-[560px]">
+        <div className="mx-auto grid h-full max-w-7xl grid-rows-[auto_1fr] gap-4 px-5 py-4 lg:grid-cols-[minmax(320px,0.82fr)_minmax(440px,1.12fr)_220px] lg:grid-rows-1 lg:gap-6 lg:px-8 lg:py-8">
+          <section className="relative hidden min-h-0 overflow-hidden lg:flex lg:items-center lg:justify-center">
+            <div className="relative w-full max-w-[430px]">
               <img
                 src={kikubaLogo}
                 alt="Mapa visual Kikuba"
-                className="w-full object-contain"
+                className="max-h-[calc(100svh-170px)] w-full object-contain"
               />
 
               {sections.map((section) => (
@@ -257,7 +257,7 @@ export default function App() {
             </div>
           </section>
 
-          <section className="min-h-0 overflow-hidden">
+          <section className="min-h-0 overflow-hidden lg:h-full">
             <div className="flex h-full flex-col border border-brand-violet/12 bg-brand-paper shadow-[0_24px_80px_rgba(37,48,43,0.10)]">
               <div className="flex items-center justify-between border-b border-brand-violet/10 px-5 py-4">
                 <div className="flex items-center gap-3">
@@ -278,14 +278,14 @@ export default function App() {
               </div>
 
               <div className="min-h-0 flex-1 overflow-y-auto px-5 py-6 sm:px-8 sm:py-8">
-                <h1 className="max-w-3xl font-display text-4xl font-semibold leading-[1.02] text-brand-violet sm:text-5xl lg:text-6xl">
+                <h1 className="max-w-3xl font-display text-3xl font-semibold leading-[1.05] text-brand-violet sm:text-4xl lg:text-5xl">
                   {active.title}
                 </h1>
-                <p className="mt-6 max-w-2xl text-base leading-8 text-brand-violet/74 sm:text-lg">
+                <p className="mt-5 max-w-2xl text-base leading-7 text-brand-violet/74">
                   {active.text}
                 </p>
 
-                <div className="mt-8 grid gap-3">
+                <div className="mt-7 grid gap-3">
                   {active.bullets.map((bullet) => (
                     <div
                       key={bullet}
@@ -338,7 +338,7 @@ export default function App() {
             </div>
           </section>
 
-          <section className="hidden min-h-0 lg:block">
+          <section className="hidden min-h-0 overflow-hidden lg:block">
             <div className="grid h-full content-center gap-3">
               {sections.map((section) => {
                 const Icon = section.icon;
