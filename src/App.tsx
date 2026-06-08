@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
-import type { ReactNode } from "react";
+import type { MouseEventHandler, ReactNode } from "react";
 import { useEffect, useState } from "react";
 import kikubaLogo from "./assets/kikuba-logo-transparent.png";
 
@@ -24,14 +24,10 @@ const whatsappHref =
 
 const navItems = [
   { label: "Inicio", href: "#inicio" },
-  { label: "Tu operacion", href: "#problema" },
-  { label: "Metodo", href: "#metodo" },
-  { label: "Servicios", href: "#servicios" },
-  { label: "Para quien", href: "#para-quien" },
-  { label: "Detras", href: "#detras" },
-  { label: "Resultados", href: "#resultados" },
-  { label: "Mapa", href: "#mapa" },
-  { label: "Contacto", href: "#contacto" },
+  { label: "Operacion", href: "#operacion" },
+  { label: "Soluciones", href: "#soluciones" },
+  { label: "Proyectos", href: "#proyectos" },
+  { label: "Origen", href: "#origen" },
 ];
 
 const pains = [
@@ -97,18 +93,24 @@ const services = [
   },
 ];
 
-const results = [
+const projects = [
   {
-    value: "Menos ruido",
-    text: "Pedidos, datos y tareas dejan de depender de memoria, notas sueltas o mensajes perdidos.",
+    title: "Landing profesional Kikuba",
+    type: "Marca y presencia digital",
+    text: "Sitio claro para explicar servicios, dirigir conversaciones y presentar una marca con criterio propio.",
+    metrics: ["Identidad", "CTA WhatsApp", "GitHub Pages"],
   },
   {
-    value: "Mas control",
-    text: "Tu operacion se vuelve mas visible para decidir que atender primero y que medir.",
+    title: "Panel operativo",
+    type: "Seguimiento y control",
+    text: "Vista tipo tablero para ordenar pendientes, revisar estados y entender que necesita atencion primero.",
+    metrics: ["Tareas", "Estados", "Reportes"],
   },
   {
-    value: "Mejor adopcion",
-    text: "La herramienta se construye escuchando a quienes la usaran todos los dias.",
+    title: "Sistema de negocio",
+    type: "Procesos internos",
+    text: "Base para convertir mensajes, hojas y procesos sueltos en una herramienta mas facil de seguir.",
+    metrics: ["WhatsApp", "Inventario", "Datos"],
   },
 ];
 
@@ -118,51 +120,6 @@ const fitSignals = [
   "Al final del mes no sabes con claridad que producto, servicio o turno deja mas margen.",
   "Cada persona nueva aprende la operacion preguntando porque no hay sistema claro.",
   "Tomas decisiones importantes con intuicion porque los datos estan dispersos.",
-];
-
-const mapNodes = [
-  {
-    label: "Problema",
-    title: "Lo que se traba",
-    text: "Mensajes, tareas y datos viven separados.",
-    top: "28%",
-    left: "25%",
-  },
-  {
-    label: "Metodo",
-    title: "Como lo entendemos",
-    text: "Observamos antes de construir.",
-    top: "28%",
-    left: "75%",
-  },
-  {
-    label: "Servicios",
-    title: "Lo que construimos",
-    text: "Sitios, sistemas y datos con sentido operativo.",
-    top: "50%",
-    left: "18%",
-  },
-  {
-    label: "Detras",
-    title: "Quien esta detras",
-    text: "Kikuba nace desde la operacion real y una forma cercana de construir.",
-    top: "50%",
-    left: "82%",
-  },
-  {
-    label: "Resultados",
-    title: "Que cambia",
-    text: "Menos caos y mas control real.",
-    top: "74%",
-    left: "31%",
-  },
-  {
-    label: "Contacto",
-    title: "Siguiente paso",
-    text: "Definir una primera solucion clara.",
-    top: "74%",
-    left: "69%",
-  },
 ];
 
 const fadeUp = {
@@ -196,7 +153,6 @@ function getInitialSection() {
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [activeNode, setActiveNode] = useState(mapNodes[0]);
   const [activeSection, setActiveSection] = useState(getInitialSection);
   const reduceMotion = useReducedMotion();
   const transition = motionTransition(Boolean(reduceMotion));
@@ -219,7 +175,7 @@ export default function App() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col overflow-hidden bg-brand-bg text-brand-dark-text">
+    <div className="flex h-[100dvh] max-h-[100dvh] flex-col overflow-hidden bg-brand-bg text-brand-dark-text">
       <header className="z-50 shrink-0 border-b border-brand-violet/12 bg-brand-bg/92 backdrop-blur-xl">
         <nav className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 lg:px-8">
           <a
@@ -353,11 +309,15 @@ export default function App() {
                   <ArrowRight className="h-4 w-4" />
                 </MotionLink>
                 <MotionLink
-                  href="#mapa"
+                  href="#operacion"
                   className="inline-flex items-center justify-center rounded-sm border border-brand-violet/20 px-7 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-brand-violet transition hover:border-brand-violet/40 hover:bg-brand-paper"
                   reduceMotion={Boolean(reduceMotion)}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    openSection("#operacion");
+                  }}
                 >
-                  Ver mapa Kikuba
+                  Ver operacion
                 </MotionLink>
               </motion.div>
             </motion.div>
@@ -377,105 +337,97 @@ export default function App() {
           </div>
         </WindowSection>
 
-        <WindowSection id="problema" activeSection={activeSection} className="border-y border-brand-violet/10 bg-brand-paper py-16 sm:py-20">
-          <div className="mx-auto max-w-7xl px-5 lg:px-8">
+        <WindowSection id="operacion" activeSection={activeSection} className="border-y border-brand-violet/10 bg-brand-paper py-10 sm:py-14">
+          <div className="mx-auto grid max-w-7xl gap-8 px-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-start lg:px-8">
             <SectionIntro
-              eyebrow="Lo que se traba"
-              title="Tu negocio no necesita mas herramientas. Necesita claridad."
-              text="Muchos negocios trabajan duro, pero operan entre mensajes, hojas de calculo, notas sueltas y decisiones tomadas con informacion incompleta."
+              eyebrow="Operacion"
+              title="Donde se traba el trabajo real."
+              text="Unimos el problema y para quien es: si tu negocio vive entre mensajes, hojas, notas y decisiones a ojo, aqui empieza Kikuba."
             />
-            <motion.div
-              variants={staggerGroup}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-80px" }}
-              className="mt-12 grid gap-4 md:grid-cols-3"
-            >
-              {pains.map((item) => (
-                <InfoCard key={item.title} {...item} />
-              ))}
-            </motion.div>
-          </div>
-        </WindowSection>
-
-        <WindowSection id="metodo" activeSection={activeSection} className="bg-brand-violet py-16 text-brand-bg sm:py-20">
-          <div className="mx-auto max-w-7xl px-5 lg:px-8">
-            <SectionIntro
-              eyebrow="Nuestro metodo"
-              title="Observamos, analizamos y construimos con los pies en la operacion."
-              text="No empezamos por la herramienta. Empezamos por entender que pasa, quienes lo viven y que solucion tendria impacto real."
-              dark
-            />
-            <motion.div
-              variants={staggerGroup}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-80px" }}
-              className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4"
-            >
-              {method.map((item) => (
-                <MethodCard key={item.title} {...item} />
-              ))}
-            </motion.div>
-          </div>
-        </WindowSection>
-
-        <WindowSection id="servicios" activeSection={activeSection} className="bg-brand-bg py-16 sm:py-20">
-          <div className="mx-auto max-w-7xl px-5 lg:px-8">
-            <SectionIntro
-              eyebrow="Servicios"
-              title="Soluciones digitales que ordenan tu negocio."
-              text="Hacemos tecnologia util para que la operacion sea mas clara, medible y facil de seguir para quienes trabajan todos los dias en ella."
-            />
-            <motion.div
-              variants={staggerGroup}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-80px" }}
-              className="mt-12 grid gap-5 lg:grid-cols-3"
-            >
-              {services.map((item) => (
-                <ServiceCard key={item.title} {...item} />
-              ))}
-            </motion.div>
-          </div>
-        </WindowSection>
-
-        <WindowSection id="para-quien" activeSection={activeSection} className="border-y border-brand-violet/10 bg-brand-paper py-16 sm:py-20">
-          <div className="mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-start lg:px-8">
-            <SectionIntro
-              eyebrow="Para quien es"
-              title="Esto es para negocios que ya sienten el desorden."
-              text="No necesitas llegar con una idea tecnica. Si alguna de estas situaciones se parece a tu dia a dia, Kikuba puede ayudarte a ordenar la operacion."
-            />
-            <div className="grid gap-3">
-              {fitSignals.map((signal) => (
-                <div
-                  key={signal}
-                  className="flex gap-3 border border-brand-violet/10 bg-brand-bg p-4"
-                >
-                  <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-brand-orange-dark" />
-                  <p className="text-sm leading-6 text-brand-violet/74">
-                    {signal}
-                  </p>
-                </div>
-              ))}
-              <a
-                href={whatsappHref}
-                className="mt-3 inline-flex items-center justify-center gap-3 rounded-sm bg-brand-violet px-6 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-brand-bg transition hover:bg-brand-orange-dark sm:w-max"
+            <div className="grid gap-5">
+              <OperationVisual />
+              <motion.div
+                variants={staggerGroup}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
+                className="grid gap-4 md:grid-cols-3"
               >
-                Si te suena familiar, hablemos
-                <ArrowRight className="h-4 w-4" />
-              </a>
+                {pains.map((item) => (
+                  <InfoCard key={item.title} {...item} />
+                ))}
+              </motion.div>
+              <div className="grid gap-3 md:grid-cols-2">
+                {fitSignals.slice(0, 4).map((signal) => (
+                  <div
+                    key={signal}
+                    className="flex gap-3 border border-brand-violet/10 bg-brand-bg p-4"
+                  >
+                    <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-brand-orange-dark" />
+                    <p className="text-sm leading-6 text-brand-violet/74">
+                      {signal}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </WindowSection>
 
-        <WindowSection id="detras" activeSection={activeSection} className="border-y border-brand-violet/10 bg-brand-paper py-16 sm:py-20">
+        <WindowSection id="soluciones" activeSection={activeSection} className="bg-brand-violet py-10 text-brand-bg sm:py-14">
+          <div className="mx-auto grid max-w-7xl gap-8 px-5 lg:grid-cols-[0.86fr_1.14fr] lg:items-start lg:px-8">
+            <SectionIntro
+              eyebrow="Metodo + servicios"
+              title="Entender primero, construir despues."
+              text="No vendemos herramientas sueltas. Observamos la operacion, detectamos prioridades y convertimos lo importante en sistemas, sitios y datos utiles."
+              dark
+            />
+            <div className="grid gap-5">
+              <SolutionsVisual />
+              <motion.div
+                variants={staggerGroup}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
+                className="grid gap-4 md:grid-cols-2"
+              >
+                {method.slice(0, 3).map((item) => (
+                  <MethodCard key={item.title} {...item} />
+                ))}
+                {services.map((item) => (
+                  <ServiceCard key={item.title} {...item} />
+                ))}
+              </motion.div>
+            </div>
+          </div>
+        </WindowSection>
+
+        <WindowSection id="proyectos" activeSection={activeSection} className="bg-brand-bg py-10 sm:py-14">
+          <div className="mx-auto max-w-7xl px-5 lg:px-8">
+            <SectionIntro
+              eyebrow="Proyectos"
+              title="Referencias de lo que podemos construir."
+              text="Estas referencias muestran el tipo de soluciones que Kikuba puede crear: presencia digital, tableros operativos y sistemas para ordenar procesos."
+            />
+            <motion.div
+              variants={staggerGroup}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              className="mt-10 grid gap-5 lg:grid-cols-3"
+            >
+              {projects.map((item) => (
+                <ProjectCard key={item.title} {...item} />
+              ))}
+            </motion.div>
+          </div>
+        </WindowSection>
+
+        <WindowSection id="origen" activeSection={activeSection} className="border-y border-brand-violet/10 bg-brand-paper py-10 sm:py-14">
           <div className="mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:px-8">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.24em] text-brand-slate">
-                Detras de Kikuba
+                Origen Kikuba
               </p>
               <h2 className="mt-4 font-display text-4xl font-semibold leading-tight text-brand-violet sm:text-5xl">
                 Kikuba nace desde la operacion real.
@@ -494,109 +446,6 @@ export default function App() {
                 hacen funcionar.
               </p>
             </div>
-          </div>
-        </WindowSection>
-
-        <WindowSection id="resultados" activeSection={activeSection} className="bg-brand-bg py-16 sm:py-20">
-          <div className="mx-auto max-w-7xl px-5 lg:px-8">
-            <SectionIntro
-              eyebrow="Resultados"
-              title="Lo que buscamos cambiar se tiene que notar en la operacion."
-              text="La meta no es tener una herramienta mas. Es ganar claridad, reducir friccion y tomar mejores decisiones con informacion que si puedes usar."
-            />
-            <motion.div
-              variants={staggerGroup}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-80px" }}
-              className="mt-12 grid gap-5 md:grid-cols-3"
-            >
-              {results.map((item) => (
-                <ResultCard key={item.value} {...item} />
-              ))}
-            </motion.div>
-          </div>
-        </WindowSection>
-
-        <WindowSection id="mapa" activeSection={activeSection} className="bg-brand-bg py-16 sm:py-20">
-          <div className="mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:px-8">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-brand-slate">
-                Mapa Kikuba
-              </p>
-              <h2 className="mt-4 font-display text-4xl font-semibold leading-tight text-brand-violet sm:text-5xl">
-                Los nodos explican como pensamos una operacion.
-              </h2>
-              <p className="mt-6 max-w-2xl text-lg leading-8 text-brand-violet/72">
-                Esta parte mantiene la idea experimental sin volverla una barrera
-                de navegacion. El logo funciona como mapa de lectura: cada nodo
-                representa una parte del proceso.
-              </p>
-
-              <div className="mt-8 border border-brand-violet/12 bg-brand-paper p-6">
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-slate">
-                  {activeNode.label}
-                </p>
-                <h3 className="mt-3 text-2xl font-semibold text-brand-violet">
-                  {activeNode.title}
-                </h3>
-                <p className="mt-3 leading-7 text-brand-violet/70">
-                  {activeNode.text}
-                </p>
-              </div>
-            </div>
-
-            <div className="relative mx-auto w-full max-w-[470px]">
-              <img src={kikubaLogo} alt="Mapa visual Kikuba" className="w-full object-contain" />
-              {mapNodes.map((node) => (
-                <motion.button
-                  key={node.label}
-                  type="button"
-                  onClick={() => setActiveNode(node)}
-                  whileHover={reduceMotion ? undefined : { scale: 1.12 }}
-                  animate={
-                    node.label === activeNode.label && !reduceMotion
-                      ? { scale: [1.18, 1.28, 1.18] }
-                      : undefined
-                  }
-                  transition={
-                    node.label === activeNode.label && !reduceMotion
-                      ? { duration: 2.4, repeat: Infinity }
-                      : undefined
-                  }
-                  className={`absolute h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full border transition ${
-                    node.label === activeNode.label
-                      ? "scale-125 border-brand-violet bg-brand-yellow shadow-[0_0_0_10px_rgba(216,199,166,0.34)]"
-                      : "border-brand-bg bg-brand-violet hover:scale-110 hover:bg-brand-orange-dark"
-                  }`}
-                  style={{ top: node.top, left: node.left }}
-                  aria-label={`Ver nodo ${node.label}`}
-                />
-              ))}
-            </div>
-          </div>
-        </WindowSection>
-
-        <WindowSection id="contacto" activeSection={activeSection} className="bg-brand-violet py-16 text-brand-bg sm:py-20">
-          <div className="mx-auto max-w-4xl px-5 text-center lg:px-8">
-            <div className="mx-auto mb-7 h-3 w-3 rotate-45 bg-brand-yellow" />
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-brand-yellow">
-              Siguiente paso
-            </p>
-            <h2 className="mt-4 font-display text-4xl font-semibold leading-tight sm:text-6xl">
-              Hablemos de tu operacion.
-            </h2>
-            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-brand-bg/74">
-              Cuentame que esta trabado. Lo observamos, lo analizamos y
-              definimos una primera solucion clara para probar con tu negocio.
-            </p>
-            <a
-              href={whatsappHref}
-              className="mt-10 inline-flex items-center justify-center gap-3 rounded-sm bg-brand-bg px-8 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-brand-violet transition hover:bg-brand-yellow"
-            >
-              Escribir por WhatsApp
-              <MessageCircle className="h-5 w-5" />
-            </a>
           </div>
         </WindowSection>
       </main>
@@ -680,7 +529,7 @@ function WindowSection({
       aria-hidden={!isActive}
       className={`${className} ${
         isActive
-          ? "block h-full overflow-y-auto overscroll-contain"
+          ? "window-scroll block h-full overflow-y-auto overscroll-contain"
           : "hidden"
       }`}
       initial={{ opacity: 0, y: 10 }}
@@ -786,6 +635,139 @@ function ServiceCard({
   );
 }
 
+function OperationVisual() {
+  const items = [
+    { label: "WhatsApp", value: "42", tone: "bg-brand-orange-light" },
+    { label: "Pendientes", value: "18", tone: "bg-brand-yellow" },
+    { label: "Inventario", value: "7", tone: "bg-brand-violet text-brand-bg" },
+  ];
+
+  return (
+    <div className="border border-brand-violet/12 bg-brand-paper p-5">
+      <div className="flex items-center justify-between gap-4">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-slate">
+          Antes de ordenar
+        </p>
+        <MessageSquareText className="h-5 w-5 text-brand-violet/70" />
+      </div>
+      <div className="mt-5 grid gap-3 sm:grid-cols-3">
+        {items.map((item) => (
+          <div key={item.label} className="border border-brand-violet/10 bg-brand-bg p-4">
+            <div className={`mb-5 h-2 w-10 ${item.tone}`} />
+            <p className="text-3xl font-semibold text-brand-violet">{item.value}</p>
+            <p className="mt-1 text-xs uppercase tracking-[0.16em] text-brand-violet/60">
+              {item.label}
+            </p>
+          </div>
+        ))}
+      </div>
+      <div className="mt-5 grid grid-cols-5 items-end gap-2">
+        {[28, 44, 36, 62, 82].map((height, index) => (
+          <div
+            key={height}
+            className="bg-brand-orange-light/70"
+            style={{ height: `${height}px`, opacity: 0.42 + index * 0.1 }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function SolutionsVisual() {
+  const steps = ["Observamos", "Analizamos", "Construimos"];
+
+  return (
+    <div className="border border-brand-bg/14 bg-brand-bg/[0.06] p-5">
+      <div className="flex items-center justify-between gap-4">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-yellow">
+          Flujo Kikuba
+        </p>
+        <Workflow className="h-5 w-5 text-brand-yellow" />
+      </div>
+      <div className="mt-6 grid gap-3 sm:grid-cols-3">
+        {steps.map((step, index) => (
+          <div key={step} className="relative border border-brand-bg/14 p-4">
+            <span className="text-xs font-semibold tracking-[0.2em] text-brand-orange-light">
+              0{index + 1}
+            </span>
+            <p className="mt-6 text-lg font-semibold text-brand-bg">{step}</p>
+            {index < steps.length - 1 && (
+              <div className="absolute -right-2 top-1/2 hidden h-px w-4 bg-brand-yellow sm:block" />
+            )}
+          </div>
+        ))}
+      </div>
+      <div className="mt-5 rounded-sm bg-brand-bg/[0.08] p-4">
+        <div className="grid gap-2">
+          {["Pedidos mas claros", "Datos visibles", "Seguimiento simple"].map((item) => (
+            <div key={item} className="flex items-center gap-3">
+              <CheckCircle2 className="h-4 w-4 text-brand-yellow" />
+              <span className="text-sm text-brand-bg/76">{item}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ProjectCard({
+  title,
+  type,
+  text,
+  metrics,
+}: {
+  key?: string;
+  title: string;
+  type: string;
+  text: string;
+  metrics: string[];
+}) {
+  const reduceMotion = useReducedMotion();
+
+  return (
+    <motion.article
+      variants={fadeUp}
+      transition={motionTransition(Boolean(reduceMotion))}
+      whileHover={reduceMotion ? undefined : { y: -4 }}
+      className="border border-brand-violet/12 bg-brand-paper p-7"
+    >
+      <div className="flex items-start justify-between gap-5">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-slate">
+            {type}
+          </p>
+          <h3 className="mt-4 text-2xl font-semibold text-brand-violet">
+            {title}
+          </h3>
+        </div>
+        <BarChart3 className="h-7 w-7 shrink-0 text-brand-violet/72" />
+      </div>
+      <p className="mt-5 leading-7 text-brand-violet/68">{text}</p>
+      <div className="mt-7 flex flex-wrap gap-2">
+        {metrics.map((metric) => (
+          <span
+            key={metric}
+            className="border border-brand-violet/10 bg-brand-bg px-3 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-brand-violet/70"
+          >
+            {metric}
+          </span>
+        ))}
+      </div>
+      <div className="mt-7 grid grid-cols-4 items-end gap-2">
+        {[24, 42, 58, 76].map((height) => (
+          <div
+            key={height}
+            className="bg-brand-orange-light"
+            style={{ height: `${height}px` }}
+          />
+        ))}
+      </div>
+    </motion.article>
+  );
+}
+
 function ResultCard({ value, text }: { key?: string; value: string; text: string }) {
   const reduceMotion = useReducedMotion();
 
@@ -816,7 +798,7 @@ function MotionLink({
   className: string;
   reduceMotion: boolean;
   children: ReactNode;
-  onClick?: () => void;
+  onClick?: MouseEventHandler<HTMLAnchorElement>;
 }) {
   return (
     <motion.a

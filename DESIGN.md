@@ -32,7 +32,7 @@ Kikuba is a warm, editorial and operational digital agency brand. The interface 
 - Header should show only the logo symbol plus `KIKUBA`.
 - The slogan `Observamos - Analizamos - Construimos` may appear in footer or brand system contexts, not as extra header clutter.
 - Do not use NFC, sticker, QR or hidden-campaign visuals on the main landing page.
-- The node language is a subtle background/detail system, not the main navigation.
+- The node language is a subtle background/detail system, not a main navigation window.
 
 ## Components
 
@@ -40,7 +40,7 @@ Kikuba is a warm, editorial and operational digital agency brand. The interface 
 - Cards should be calm, bordered, warm and lightweight.
 - Icons use `lucide-react` as the default set.
 - Do not mix icon families unless a future direction explicitly approves it.
-- Use `Detras de Kikuba` instead of `Staff` for the founder/brand-origin section.
+- Use `Origen Kikuba` instead of `Staff` or `Detras` for the founder/brand-origin section.
 
 ## Motion
 

@@ -18,7 +18,9 @@
 
 @layer base {
   html, body, #root {
+    height: 100%;
     max-width: 100%;
+    min-height: 100%;
     overflow-x: hidden;
   }
 
@@ -34,6 +36,7 @@
     background-color: var(--color-brand-bg);
     color: var(--color-brand-dark-text);
     font-family: var(--font-sans);
+    overflow: hidden;
     text-rendering: optimizeLegibility;
   }
 }
@@ -50,4 +53,9 @@
 
 .brand-word {
   letter-spacing: 0.38em;
+}
+
+.window-scroll {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-gutter: stable;
 }
