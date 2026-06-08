@@ -95,6 +95,13 @@ const services = [
 
 const projects = [
   {
+    title: "SIE7E Beauty Room",
+    type: "Proyecto principal",
+    status: "En produccion",
+    text: "Sitio publico, portal, panel administrativo y backend para operar citas, clientas, calendario, roles, comunicacion por WhatsApp y seguimiento del negocio.",
+    metrics: ["Sitio publico", "Admin", "Backend", "WhatsApp"],
+  },
+  {
     title: "Cape Cafe PWA",
     type: "Sistema operativo para cafe",
     status: "En desarrollo",
@@ -128,13 +135,6 @@ const projects = [
     status: "Prototipo",
     text: "Tablero para visualizar salud de viñedos y convertir informacion dispersa del sector vino en lectura operativa para toma de decisiones.",
     metrics: ["Dashboard", "Datos", "Vinedos"],
-  },
-  {
-    title: "Smart Closet",
-    type: "App privada offline-first",
-    status: "Concepto",
-    text: "Armario digital privado tipo lookbook para organizar prendas y planear outfits, pensado como experiencia minimalista y personal.",
-    metrics: ["Offline", "Lookbook", "Gemini"],
   },
 ];
 
@@ -430,8 +430,8 @@ export default function App() {
           <div className="mx-auto max-w-7xl px-5 lg:px-8">
             <SectionIntro
               eyebrow="Proyectos"
-              title="Referencias de lo que podemos construir."
-              text="Estas referencias muestran el tipo de soluciones que Kikuba puede crear: presencia digital, tableros operativos y sistemas para ordenar procesos."
+              title="Proyectos reales y prototipos en marcha."
+              text="No son promesas abstractas. Son sistemas, paneles, PWAs y flujos operativos trabajados en proyectos reales, con distintos niveles de avance."
             />
             <motion.div
               variants={staggerGroup}
@@ -781,15 +781,6 @@ function ProjectCard({
           >
             {metric}
           </span>
-        ))}
-      </div>
-      <div className="mt-7 grid grid-cols-4 items-end gap-2">
-        {[24, 42, 58, 76].map((height) => (
-          <div
-            key={height}
-            className="bg-brand-orange-light"
-            style={{ height: `${height}px` }}
-          />
         ))}
       </div>
     </motion.article>
