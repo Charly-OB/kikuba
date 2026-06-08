@@ -24,6 +24,7 @@ const navItems = [
   { label: "Problema", href: "#problema" },
   { label: "Metodo", href: "#metodo" },
   { label: "Servicios", href: "#servicios" },
+  { label: "Para quien", href: "#para-quien" },
   { label: "Mapa", href: "#mapa" },
   { label: "Contacto", href: "#contacto" },
 ];
@@ -51,7 +52,7 @@ const method = [
     icon: Eye,
     label: "01",
     title: "Observamos",
-    text: "Entendemos como trabaja tu negocio en la vida real: personas, tareas, herramientas, mensajes y puntos de friccion.",
+    text: "Hablamos con quien dirige y tambien con quien atiende, registra, prepara y resuelve todos los dias. Ahi esta la operacion real.",
   },
   {
     icon: Search,
@@ -77,18 +78,26 @@ const services = [
   {
     icon: FileText,
     title: "Presencia digital clara",
-    text: "Sitios, landing pages y catalogos digitales que explican bien lo que haces y convierten visitas en conversaciones reales.",
+    text: "Para que cuando alguien busque tu negocio encuentre una experiencia clara, confiable y lista para abrir una conversacion.",
   },
   {
     icon: Workflow,
     title: "Sistemas para operar",
-    text: "Herramientas internas para pedidos, inventario, solicitudes, registros, tareas y flujos diarios del equipo.",
+    text: "Para que tus pedidos dejen de perderse en WhatsApp y tu inventario deje de depender de quien recuerde actualizarlo.",
   },
   {
     icon: BarChart3,
     title: "Datos para decidir",
-    text: "Tableros, reportes y metricas utiles para dejar de adivinar y ver tu operacion con claridad.",
+    text: "Para saber que se vende, que deja margen, donde se pierde tiempo y que parte de la operacion necesita atencion.",
   },
+];
+
+const fitSignals = [
+  "Tus pedidos llegan por WhatsApp y alguien los anota en papel o en una hoja.",
+  "Tu inventario vive en Excel, o ya nadie sabe si esta actualizado.",
+  "Al final del mes no sabes con claridad que producto, servicio o turno deja mas margen.",
+  "Cada persona nueva aprende la operacion preguntando porque no hay sistema claro.",
+  "Tomas decisiones importantes con intuicion porque los datos estan dispersos.",
 ];
 
 const mapNodes = [
@@ -227,8 +236,7 @@ export default function App() {
               </h1>
               <p className="mt-7 max-w-2xl text-lg leading-8 text-brand-violet/76">
                 Observamos como trabaja tu negocio, escuchamos a tu equipo y
-                construimos herramientas digitales que ordenan la operacion sin
-                agregar complejidad innecesaria.
+                construimos herramientas digitales que ordenan la operacion.
               </p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                 <a
@@ -303,6 +311,36 @@ export default function App() {
           </div>
         </section>
 
+        <section id="para-quien" className="border-y border-brand-violet/10 bg-brand-paper py-16 sm:py-20">
+          <div className="mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-start lg:px-8">
+            <SectionIntro
+              eyebrow="Para quien es"
+              title="Esto es para negocios que ya sienten el desorden."
+              text="No necesitas llegar con una idea tecnica. Si alguna de estas situaciones se parece a tu dia a dia, Kikuba puede ayudarte a ordenar la operacion."
+            />
+            <div className="grid gap-3">
+              {fitSignals.map((signal) => (
+                <div
+                  key={signal}
+                  className="flex gap-3 border border-brand-violet/10 bg-brand-bg p-4"
+                >
+                  <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-brand-orange-dark" />
+                  <p className="text-sm leading-6 text-brand-violet/74">
+                    {signal}
+                  </p>
+                </div>
+              ))}
+              <a
+                href={whatsappHref}
+                className="mt-3 inline-flex items-center justify-center gap-3 rounded-sm bg-brand-violet px-6 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-brand-bg transition hover:bg-brand-orange-dark sm:w-max"
+              >
+                Si te suena familiar, hablemos
+                <ArrowRight className="h-4 w-4" />
+              </a>
+            </div>
+          </div>
+        </section>
+
         <section id="diferencial" className="border-y border-brand-violet/10 bg-brand-paper py-16 sm:py-20">
           <div className="mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:px-8">
             <div>
@@ -315,14 +353,13 @@ export default function App() {
             </div>
             <div className="space-y-6 text-lg leading-8 text-brand-violet/74">
               <p>
-                Muchos proyectos digitales fallan porque se disenan solo desde
-                la vision directiva. Kikuba tambien toma en cuenta al staff:
-                quien atiende, registra, vende, prepara, reporta y resuelve
-                problemas todos los dias.
+                La mayoria de los sistemas fallan porque los disenaron personas
+                que nunca atendieron una mesa, despacharon un pedido ni cerraron
+                caja al final del dia.
               </p>
               <p className="border-l-2 border-brand-yellow pl-5 font-medium text-brand-violet">
-                La tecnologia funciona mejor cuando entiende a las personas que
-                la van a usar.
+                En Kikuba tambien escuchamos a quien vive la operacion. Porque
+                un sistema que el equipo no adopta no sirve de nada.
               </p>
             </div>
           </div>

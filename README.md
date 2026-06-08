@@ -1,26 +1,40 @@
-# Juan Carlos Obeso | Web & Datos
+# Kikuba
 
-Portafolio profesional en React/Vite para presentar servicios de desarrollo web full-stack, soluciones SaaS a la medida y análisis de datos comercial en Ensenada y todo México.
+Sitio web oficial de Kikuba, agencia digital para operaciones reales.
 
-## Scripts
+Kikuba observa como trabaja un negocio, escucha al equipo y construye herramientas digitales que ordenan la operacion: sitios web claros, sistemas internos y datos utiles para decidir mejor.
+
+## Desarrollo local
 
 ```bash
 npm install
 npm run dev
-npm run build
-npm run preview
 ```
 
-## GitHub Pages
+## Build y GitHub Pages
 
-Este proyecto está preparado para publicarse en el repositorio `Charly-OB/paginaweb`.
+El proyecto se publica en:
 
-- Para GitHub Pages, el build de Vite debe publicarse desde `dist`.
-- Si se publica como proyecto en `https://charly-ob.github.io/paginaweb/`, mantener `base: "/paginaweb/"` en `vite.config.ts`.
+```text
+https://charly-ob.github.io/paginaweb/
+```
 
-## WhatsApp
+Mientras se use GitHub Pages como proyecto, mantener:
 
-Todos los enlaces apuntan a:
+```ts
+base: "/paginaweb/"
+```
+
+Build local:
+
+```bash
+npm run lint
+npm run build
+```
+
+La publicacion actual en GitHub Pages se mantiene commiteando el build generado en la raiz del repositorio.
+
+## Contacto
 
 ```text
 https://wa.me/526462865241
