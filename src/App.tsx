@@ -14,6 +14,8 @@ import {
   X,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
+import type { ReactNode } from "react";
 import { useState } from "react";
 import kikubaLogo from "./assets/kikuba-logo-transparent.png";
 
@@ -21,11 +23,12 @@ const whatsappHref =
   "https://wa.me/526462865241?text=Hola%20Kikuba%2C%20quiero%20hablar%20sobre%20mi%20operacion.";
 
 const navItems = [
-  { label: "Problema", href: "#problema" },
+  { label: "Inicio", href: "#inicio" },
+  { label: "Tu operacion", href: "#problema" },
   { label: "Metodo", href: "#metodo" },
   { label: "Servicios", href: "#servicios" },
-  { label: "Para quien", href: "#para-quien" },
-  { label: "Mapa", href: "#mapa" },
+  { label: "Detras", href: "#detras" },
+  { label: "Resultados", href: "#resultados" },
   { label: "Contacto", href: "#contacto" },
 ];
 
@@ -92,6 +95,21 @@ const services = [
   },
 ];
 
+const results = [
+  {
+    value: "Menos ruido",
+    text: "Pedidos, datos y tareas dejan de depender de memoria, notas sueltas o mensajes perdidos.",
+  },
+  {
+    value: "Mas control",
+    text: "Tu operacion se vuelve mas visible para decidir que atender primero y que medir.",
+  },
+  {
+    value: "Mejor adopcion",
+    text: "La herramienta se construye escuchando a quienes la usaran todos los dias.",
+  },
+];
+
 const fitSignals = [
   "Tus pedidos llegan por WhatsApp y alguien los anota en papel o en una hoja.",
   "Tu inventario vive en Excel, o ya nadie sabe si esta actualizado.",
@@ -123,9 +141,9 @@ const mapNodes = [
     left: "18%",
   },
   {
-    label: "Staff",
-    title: "A quien escuchamos",
-    text: "Tambien al equipo que usa el sistema todos los dias.",
+    label: "Detras",
+    title: "Quien esta detras",
+    text: "Kikuba nace desde la operacion real y una forma cercana de construir.",
     top: "50%",
     left: "82%",
   },
@@ -145,9 +163,31 @@ const mapNodes = [
   },
 ];
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 18 },
+  visible: { opacity: 1, y: 0 },
+};
+
+const staggerGroup = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+function motionTransition(reduceMotion: boolean) {
+  return reduceMotion
+    ? { duration: 0 }
+    : { duration: 0.7, ease: [0.22, 1, 0.36, 1] };
+}
+
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeNode, setActiveNode] = useState(mapNodes[0]);
+  const reduceMotion = useReducedMotion();
+  const transition = motionTransition(Boolean(reduceMotion));
 
   return (
     <div className="min-h-screen bg-brand-bg text-brand-dark-text">
@@ -159,14 +199,9 @@ export default function App() {
               alt="Kikuba"
               className="h-12 w-12 shrink-0 object-cover object-top"
             />
-            <div className="min-w-0">
-              <p className="brand-word text-base font-semibold text-brand-violet sm:text-lg">
-                KIKUBA
-              </p>
-              <p className="hidden text-[10px] font-medium uppercase tracking-[0.22em] text-brand-slate sm:block">
-                Observamos - Analizamos - Construimos
-              </p>
-            </div>
+            <p className="brand-word text-base font-semibold text-brand-violet sm:text-lg">
+              KIKUBA
+            </p>
           </a>
 
           <div className="hidden items-center gap-7 lg:flex">
@@ -225,43 +260,73 @@ export default function App() {
       </header>
 
       <main>
-        <section id="inicio" className="overflow-hidden">
+        <section id="inicio" className="relative overflow-hidden">
+          <NodeField reduceMotion={Boolean(reduceMotion)} />
           <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-16 sm:py-20 lg:grid-cols-[1.08fr_0.92fr] lg:px-8 lg:py-24">
-            <div>
-              <p className="mb-5 text-xs font-semibold uppercase tracking-[0.24em] text-brand-slate">
+            <motion.div
+              variants={staggerGroup}
+              initial="hidden"
+              animate="visible"
+              className="relative z-10"
+            >
+              <motion.p
+                variants={fadeUp}
+                transition={transition}
+                className="mb-5 text-xs font-semibold uppercase tracking-[0.24em] text-brand-slate"
+              >
                 Agencia digital para operaciones reales
-              </p>
-              <h1 className="max-w-4xl font-display text-5xl font-semibold leading-[0.98] text-brand-violet sm:text-6xl lg:text-7xl">
-                Tecnologia que entiende tu operacion.
-              </h1>
-              <p className="mt-7 max-w-2xl text-lg leading-8 text-brand-violet/76">
-                Observamos como trabaja tu negocio, escuchamos a tu equipo y
-                construimos herramientas digitales que ordenan la operacion.
-              </p>
-              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <a
+              </motion.p>
+              <motion.h1
+                variants={fadeUp}
+                transition={transition}
+                className="max-w-4xl font-display text-5xl font-semibold leading-[0.98] text-brand-violet sm:text-6xl lg:text-7xl"
+              >
+                Primero entendemos. Luego{" "}
+                <span className="text-brand-slate">construimos.</span>
+              </motion.h1>
+              <motion.p
+                variants={fadeUp}
+                transition={transition}
+                className="mt-7 max-w-2xl text-lg leading-8 text-brand-violet/76"
+              >
+                Observamos tu operacion, escuchamos a tu equipo y creamos
+                herramientas digitales que ordenan el trabajo real.
+              </motion.p>
+              <motion.div
+                variants={fadeUp}
+                transition={transition}
+                className="mt-9 flex flex-col gap-3 sm:flex-row"
+              >
+                <MotionLink
                   href={whatsappHref}
                   className="inline-flex items-center justify-center gap-3 rounded-sm bg-brand-violet px-7 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-brand-bg transition hover:bg-brand-orange-dark"
+                  reduceMotion={Boolean(reduceMotion)}
                 >
                   Hablemos de tu operacion
                   <ArrowRight className="h-4 w-4" />
-                </a>
-                <a
+                </MotionLink>
+                <MotionLink
                   href="#mapa"
                   className="inline-flex items-center justify-center rounded-sm border border-brand-violet/20 px-7 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-brand-violet transition hover:border-brand-violet/40 hover:bg-brand-paper"
+                  reduceMotion={Boolean(reduceMotion)}
                 >
                   Ver mapa Kikuba
-                </a>
-              </div>
-            </div>
+                </MotionLink>
+              </motion.div>
+            </motion.div>
 
-            <div className="flex justify-center lg:justify-end">
+            <motion.div
+              initial={reduceMotion ? false : { opacity: 0, scale: 0.97 }}
+              animate={reduceMotion ? undefined : { opacity: 1, scale: 1 }}
+              transition={reduceMotion ? undefined : { delay: 0.18, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+              className="relative z-10 flex justify-center lg:justify-end"
+            >
               <img
                 src={kikubaLogo}
                 alt="Logo Kikuba"
-                className="w-full max-w-[430px] object-contain"
+                className="w-full max-w-[430px] object-contain drop-shadow-[0_22px_50px_rgba(37,48,43,0.08)]"
               />
-            </div>
+            </motion.div>
           </div>
         </section>
 
@@ -272,11 +337,17 @@ export default function App() {
               title="Tu negocio no necesita mas herramientas. Necesita claridad."
               text="Muchos negocios trabajan duro, pero operan entre mensajes, hojas de calculo, notas sueltas y decisiones tomadas con informacion incompleta."
             />
-            <div className="mt-12 grid gap-4 md:grid-cols-3">
+            <motion.div
+              variants={staggerGroup}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              className="mt-12 grid gap-4 md:grid-cols-3"
+            >
               {pains.map((item) => (
                 <InfoCard key={item.title} {...item} />
               ))}
-            </div>
+            </motion.div>
           </div>
         </section>
 
@@ -288,11 +359,17 @@ export default function App() {
               text="No empezamos por la herramienta. Empezamos por entender que pasa, quienes lo viven y que solucion tendria impacto real."
               dark
             />
-            <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+            <motion.div
+              variants={staggerGroup}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4"
+            >
               {method.map((item) => (
                 <MethodCard key={item.title} {...item} />
               ))}
-            </div>
+            </motion.div>
           </div>
         </section>
 
@@ -303,11 +380,17 @@ export default function App() {
               title="Soluciones digitales que ordenan tu negocio."
               text="Hacemos tecnologia util para que la operacion sea mas clara, medible y facil de seguir para quienes trabajan todos los dias en ella."
             />
-            <div className="mt-12 grid gap-5 lg:grid-cols-3">
+            <motion.div
+              variants={staggerGroup}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              className="mt-12 grid gap-5 lg:grid-cols-3"
+            >
               {services.map((item) => (
                 <ServiceCard key={item.title} {...item} />
               ))}
-            </div>
+            </motion.div>
           </div>
         </section>
 
@@ -341,27 +424,50 @@ export default function App() {
           </div>
         </section>
 
-        <section id="diferencial" className="border-y border-brand-violet/10 bg-brand-paper py-16 sm:py-20">
+        <section id="detras" className="border-y border-brand-violet/10 bg-brand-paper py-16 sm:py-20">
           <div className="mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:px-8">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.24em] text-brand-slate">
-                Diferencial Kikuba
+                Detras de Kikuba
               </p>
               <h2 className="mt-4 font-display text-4xl font-semibold leading-tight text-brand-violet sm:text-5xl">
-                Tambien escuchamos a la gente que vive la operacion.
+                Kikuba nace desde la operacion real.
               </h2>
             </div>
             <div className="space-y-6 text-lg leading-8 text-brand-violet/74">
               <p>
-                La mayoria de los sistemas fallan porque los disenaron personas
-                que nunca atendieron una mesa, despacharon un pedido ni cerraron
-                caja al final del dia.
+                Soy Juan Carlos, fundador y desarrollador independiente. Antes
+                de construir sistemas, he vivido el trabajo diario desde dentro:
+                atencion, procesos, presion, improvisacion y decisiones tomadas
+                con informacion incompleta.
               </p>
               <p className="border-l-2 border-brand-yellow pl-5 font-medium text-brand-violet">
-                En Kikuba tambien escuchamos a quien vive la operacion. Porque
-                un sistema que el equipo no adopta no sirve de nada.
+                Por eso Kikuba no empieza vendiendo tecnologia: empieza
+                entendiendo como trabaja tu negocio y escuchando a quienes lo
+                hacen funcionar.
               </p>
             </div>
+          </div>
+        </section>
+
+        <section id="resultados" className="bg-brand-bg py-16 sm:py-20">
+          <div className="mx-auto max-w-7xl px-5 lg:px-8">
+            <SectionIntro
+              eyebrow="Resultados"
+              title="Lo que buscamos cambiar se tiene que notar en la operacion."
+              text="La meta no es tener una herramienta mas. Es ganar claridad, reducir friccion y tomar mejores decisiones con informacion que si puedes usar."
+            />
+            <motion.div
+              variants={staggerGroup}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              className="mt-12 grid gap-5 md:grid-cols-3"
+            >
+              {results.map((item) => (
+                <ResultCard key={item.value} {...item} />
+              ))}
+            </motion.div>
           </div>
         </section>
 
@@ -396,10 +502,21 @@ export default function App() {
             <div className="relative mx-auto w-full max-w-[470px]">
               <img src={kikubaLogo} alt="Mapa visual Kikuba" className="w-full object-contain" />
               {mapNodes.map((node) => (
-                <button
+                <motion.button
                   key={node.label}
                   type="button"
                   onClick={() => setActiveNode(node)}
+                  whileHover={reduceMotion ? undefined : { scale: 1.12 }}
+                  animate={
+                    node.label === activeNode.label && !reduceMotion
+                      ? { scale: [1.18, 1.28, 1.18] }
+                      : undefined
+                  }
+                  transition={
+                    node.label === activeNode.label && !reduceMotion
+                      ? { duration: 2.4, repeat: Infinity }
+                      : undefined
+                  }
                   className={`absolute h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full border transition ${
                     node.label === activeNode.label
                       ? "scale-125 border-brand-violet bg-brand-yellow shadow-[0_0_0_10px_rgba(216,199,166,0.34)]"
@@ -507,12 +624,19 @@ function InfoCard({
   title: string;
   text: string;
 }) {
+  const reduceMotion = useReducedMotion();
+
   return (
-    <article className="border border-brand-violet/12 bg-brand-bg p-6 transition hover:bg-brand-orange-light/16">
+    <motion.article
+      variants={fadeUp}
+      transition={motionTransition(Boolean(reduceMotion))}
+      whileHover={reduceMotion ? undefined : { y: -4 }}
+      className="border border-brand-violet/12 bg-brand-bg p-6 transition hover:bg-brand-orange-light/16"
+    >
       <Icon className="h-7 w-7 text-brand-violet/76" />
       <h3 className="mt-8 text-lg font-semibold text-brand-violet">{title}</h3>
       <p className="mt-3 text-sm leading-6 text-brand-violet/66">{text}</p>
-    </article>
+    </motion.article>
   );
 }
 
@@ -528,8 +652,15 @@ function MethodCard({
   title: string;
   text: string;
 }) {
+  const reduceMotion = useReducedMotion();
+
   return (
-    <article className="border border-brand-bg/14 bg-brand-bg/[0.04] p-6">
+    <motion.article
+      variants={fadeUp}
+      transition={motionTransition(Boolean(reduceMotion))}
+      whileHover={reduceMotion ? undefined : { y: -4 }}
+      className="border border-brand-bg/14 bg-brand-bg/[0.04] p-6"
+    >
       <div className="flex items-center justify-between gap-4">
         <Icon className="h-7 w-7 text-brand-yellow" />
         <span className="text-xs font-semibold tracking-[0.2em] text-brand-orange-light">
@@ -540,7 +671,7 @@ function MethodCard({
         {title}
       </h3>
       <p className="mt-4 text-sm leading-6 text-brand-bg/68">{text}</p>
-    </article>
+    </motion.article>
   );
 }
 
@@ -554,8 +685,15 @@ function ServiceCard({
   title: string;
   text: string;
 }) {
+  const reduceMotion = useReducedMotion();
+
   return (
-    <article className="group border border-brand-violet/12 bg-brand-paper p-7 transition hover:bg-brand-orange-light/18">
+    <motion.article
+      variants={fadeUp}
+      transition={motionTransition(Boolean(reduceMotion))}
+      whileHover={reduceMotion ? undefined : { y: -4 }}
+      className="group border border-brand-violet/12 bg-brand-paper p-7 transition hover:bg-brand-orange-light/18"
+    >
       <Icon className="h-8 w-8 text-brand-violet/72" />
       <h3 className="mt-10 text-xl font-semibold text-brand-violet">{title}</h3>
       <p className="mt-4 leading-7 text-brand-violet/68">{text}</p>
@@ -566,6 +704,104 @@ function ServiceCard({
         Conversar
         <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
       </a>
-    </article>
+    </motion.article>
+  );
+}
+
+function ResultCard({ value, text }: { key?: string; value: string; text: string }) {
+  const reduceMotion = useReducedMotion();
+
+  return (
+    <motion.article
+      variants={fadeUp}
+      transition={motionTransition(Boolean(reduceMotion))}
+      whileHover={reduceMotion ? undefined : { y: -4 }}
+      className="border border-brand-violet/12 bg-brand-paper p-7"
+    >
+      <BarChart3 className="h-7 w-7 text-brand-violet/72" />
+      <h3 className="mt-10 text-2xl font-semibold text-brand-violet">
+        {value}
+      </h3>
+      <p className="mt-4 leading-7 text-brand-violet/68">{text}</p>
+    </motion.article>
+  );
+}
+
+function MotionLink({
+  href,
+  className,
+  reduceMotion,
+  children,
+  onClick,
+}: {
+  href: string;
+  className: string;
+  reduceMotion: boolean;
+  children: ReactNode;
+  onClick?: () => void;
+}) {
+  return (
+    <motion.a
+      href={href}
+      className={className}
+      onClick={onClick}
+      whileHover={reduceMotion ? undefined : { y: -2 }}
+      whileTap={reduceMotion ? undefined : { scale: 0.98 }}
+    >
+      {children}
+    </motion.a>
+  );
+}
+
+function NodeField({ reduceMotion }: { reduceMotion: boolean }) {
+  const nodes = [
+    { top: "19%", left: "59%", size: "h-3 w-3", color: "bg-brand-yellow" },
+    { top: "26%", left: "70%", size: "h-2 w-2", color: "bg-brand-slate" },
+    { top: "40%", left: "54%", size: "h-4 w-4", color: "bg-brand-orange-light" },
+    { top: "52%", left: "81%", size: "h-3 w-3", color: "bg-brand-yellow" },
+    { top: "69%", left: "63%", size: "h-5 w-5", color: "bg-brand-violet" },
+  ];
+
+  return (
+    <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 overflow-hidden lg:block">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(255,253,248,0.72),transparent_34%)]" />
+      <svg
+        viewBox="0 0 640 520"
+        className="absolute inset-0 h-full w-full opacity-35"
+        aria-hidden="true"
+      >
+        <path
+          d="M80 210 L230 95 L420 135 L555 245 L390 410 L165 360 Z"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1"
+          className="text-brand-slate"
+        />
+        <path
+          d="M230 95 L390 410 M80 210 L420 135 M165 360 L555 245"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1"
+          className="text-brand-yellow"
+        />
+      </svg>
+      {nodes.map((node, index) => (
+        <motion.span
+          key={`${node.top}-${node.left}`}
+          className={`absolute rounded-full ${node.size} ${node.color}`}
+          style={{ top: node.top, left: node.left }}
+          animate={
+            reduceMotion
+              ? undefined
+              : { opacity: [0.65, 1, 0.65], scale: [1, 1.08, 1] }
+          }
+          transition={
+            reduceMotion
+              ? undefined
+              : { duration: 3.4, delay: index * 0.35, repeat: Infinity }
+          }
+        />
+      ))}
+    </div>
   );
 }

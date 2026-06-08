@@ -4,6 +4,17 @@ Sitio web oficial de Kikuba, agencia digital para operaciones reales.
 
 Kikuba observa como trabaja un negocio, escucha al equipo y construye herramientas digitales que ordenan la operacion: sitios web claros, sistemas internos y datos utiles para decidir mejor.
 
+Mensaje principal:
+
+```text
+Primero entendemos. Luego construimos.
+```
+
+## Sistema de marca
+
+- `DESIGN.md`: reglas visuales, tono, layout, iconografia, Motion y restricciones del logo.
+- `VIDEO_STYLE.md`: guia futura para Jitter, SVGator y Anime.js sin agregarlos como dependencias de la landing.
+
 ## Desarrollo local
 
 ```bash
