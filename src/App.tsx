@@ -95,22 +95,46 @@ const services = [
 
 const projects = [
   {
-    title: "Landing profesional Kikuba",
-    type: "Marca y presencia digital",
-    text: "Sitio claro para explicar servicios, dirigir conversaciones y presentar una marca con criterio propio.",
-    metrics: ["Identidad", "CTA WhatsApp", "GitHub Pages"],
+    title: "Cape Cafe PWA",
+    type: "Sistema operativo para cafe",
+    status: "En desarrollo",
+    text: "PWA React/Vite con Supabase e IndexedDB para inventario, costos, margen financiero, tickets y OCR sin exponer API keys en frontend.",
+    metrics: ["Supabase", "OCR tickets", "Inventario"],
   },
   {
-    title: "Panel operativo",
-    type: "Seguimiento y control",
-    text: "Vista tipo tablero para ordenar pendientes, revisar estados y entender que necesita atencion primero.",
-    metrics: ["Tareas", "Estados", "Reportes"],
+    title: "Cape Cafe Menu Digital",
+    type: "Menu PWA para negocio local",
+    status: "Construido",
+    text: "Menu digital con categorias, busqueda, QR, informacion del negocio, ubicacion, Instagram, traducciones ES/EN y datos de nutricion estimada.",
+    metrics: ["QR", "ES/EN", "PWA"],
   },
   {
-    title: "Sistema de negocio",
-    type: "Procesos internos",
-    text: "Base para convertir mensajes, hojas y procesos sueltos en una herramienta mas facil de seguir.",
-    metrics: ["WhatsApp", "Inventario", "Datos"],
+    title: "Pipa Segura",
+    type: "Pedidos y rutas",
+    status: "Prototipo",
+    text: "Interfaz para pedir pipas de agua, registrar datos del cliente, consultar pedidos y mover estatus entre pendiente, en ruta y entregado.",
+    metrics: ["Mapa", "Pedidos", "Estatus"],
+  },
+  {
+    title: "Clinic AI Assistant",
+    type: "Atencion y agenda",
+    status: "Prototipo avanzado",
+    text: "Dashboard con asistente IA, simulador tipo WhatsApp, citas, pacientes, intervencion humana y conexiones planeadas con Google Calendar, Drive y Contacts.",
+    metrics: ["Gemini", "Agenda", "WhatsApp"],
+  },
+  {
+    title: "Vino BC Intelligence",
+    type: "Dashboard de datos",
+    status: "Prototipo",
+    text: "Tablero para visualizar salud de viñedos y convertir informacion dispersa del sector vino en lectura operativa para toma de decisiones.",
+    metrics: ["Dashboard", "Datos", "Vinedos"],
+  },
+  {
+    title: "Smart Closet",
+    type: "App privada offline-first",
+    status: "Concepto",
+    text: "Armario digital privado tipo lookbook para organizar prendas y planear outfits, pensado como experiencia minimalista y personal.",
+    metrics: ["Offline", "Lookbook", "Gemini"],
   },
 ];
 
@@ -715,12 +739,14 @@ function SolutionsVisual() {
 function ProjectCard({
   title,
   type,
+  status,
   text,
   metrics,
 }: {
   key?: string;
   title: string;
   type: string;
+  status: string;
   text: string;
   metrics: string[];
 }) {
@@ -742,7 +768,9 @@ function ProjectCard({
             {title}
           </h3>
         </div>
-        <BarChart3 className="h-7 w-7 shrink-0 text-brand-violet/72" />
+        <span className="shrink-0 border border-brand-violet/10 bg-brand-bg px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-brand-violet/70">
+          {status}
+        </span>
       </div>
       <p className="mt-5 leading-7 text-brand-violet/68">{text}</p>
       <div className="mt-7 flex flex-wrap gap-2">
