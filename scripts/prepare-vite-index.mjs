@@ -1,4 +1,6 @@
-<!doctype html>
+import { writeFileSync } from "node:fs";
+
+const indexHtml = `<!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
@@ -29,10 +31,12 @@
     <link rel="icon" type="image/png" href="/kikuba/favicon.png" />
     <link rel="apple-touch-icon" href="/kikuba/favicon.png" />
     <title>Kikuba - Tecnología que entiende tu operación</title>
-    <script type="module" crossorigin src="/kikuba/assets/index-IBVhsLRB.js"></script>
-    <link rel="stylesheet" crossorigin href="/kikuba/assets/index-BCNkcy2y.css">
   </head>
   <body>
     <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
+`;
+
+writeFileSync("index.html", indexHtml, "utf8");

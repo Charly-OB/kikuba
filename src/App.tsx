@@ -81,11 +81,9 @@ export default function App() {
       <header className="fixed left-0 right-0 top-5 z-40 px-4 md:px-8">
         <nav className="mx-auto flex max-w-5xl items-center justify-between rounded-full border border-[#EFE8D7]/12 bg-[#25302B]/78 px-4 py-3 shadow-[0_18px_60px_rgba(0,0,0,0.18)] backdrop-blur-md transition-all duration-300 hover:border-[#EFE8D7]/20 md:px-6">
           <a href="#" className="flex items-center gap-3" aria-label="Kikuba inicio">
-            <img
-              src={kikubaLogo}
-              alt="Logo Kikuba"
-              className="h-10 w-10 object-contain"
-            />
+            <span className="logo-mark-frame" aria-hidden="true">
+              <img src={kikubaLogo} alt="" className="logo-mark-image" />
+            </span>
             <span className="text-sm font-semibold uppercase tracking-[0.34em] text-[#EFE8D7] md:text-base">
               Kikuba
             </span>
@@ -182,13 +180,15 @@ export default function App() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.15, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="relative flex h-80 w-80 items-center justify-center rounded-full border border-[#A9B99B]/20">
+            <div className="logo-hero-orbit">
               <div className="absolute inset-6 rounded-full border border-dashed border-[#D8C7A6]/28" />
-              <img
-                src={kikubaLogo}
-                alt="Logo Kikuba"
-                className="relative z-10 w-52 object-contain drop-shadow-[0_24px_70px_rgba(0,0,0,0.22)]"
-              />
+              <div className="logo-hero-plate">
+                <img
+                  src={kikubaLogo}
+                  alt="Logo Kikuba"
+                  className="logo-hero-image"
+                />
+              </div>
             </div>
           </motion.div>
         </section>
