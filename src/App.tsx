@@ -5,6 +5,9 @@ import kikubaLogo from "./assets/kikuba-logo-transparent.png";
 const whatsappHref =
   "https://wa.me/526462865241?text=Hola%20Kikuba%2C%20quiero%20hablar%20sobre%20mi%20operaci%C3%B3n%20y%20ver%20si%20podemos%20ordenarla%20con%20tecnolog%C3%ADa.";
 
+const earlyAccessFormHref =
+  "https://docs.google.com/forms/d/e/1FAIpQLSd_pQ_h1VcgKAZht71zH5pyIzbq5jbN3jGA0kJjhnMpW3_I3A/viewform";
+
 const navItems = [
   { label: "Enfoque", href: "#enfoque" },
   { label: "Método", href: "#metodo" },
@@ -72,6 +75,12 @@ const projects = [
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname =
+    typeof window === "undefined" ? "/" : window.location.pathname.replace(/\/+$/, "");
+
+  if (pathname.endsWith("/acceso-temprano")) {
+    return <EarlyAccessPage />;
+  }
 
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-[#25302B] font-sans text-[#EFE8D7] selection:bg-[#A9B99B] selection:text-[#25302B]">
@@ -337,6 +346,117 @@ export default function App() {
           </div>
         </div>
       </footer>
+    </div>
+  );
+}
+
+function EarlyAccessPage() {
+  const signals = [
+    "Pierdes mensajes o clientes entre conversaciones.",
+    "Das seguimiento tarde porque todo depende de memoria.",
+    "Tienes información repartida entre WhatsApp, Excel, agenda y notas.",
+    "Tu página o redes existen, pero no ayudan a ordenar el contacto.",
+    "Quieres mejorar, pero no sabes si necesitas web, formulario, CRM o sistema.",
+  ];
+
+  return (
+    <div className="relative min-h-screen overflow-x-hidden bg-[#25302B] font-sans text-[#EFE8D7] selection:bg-[#A9B99B] selection:text-[#25302B]">
+      <div className="pointer-events-none fixed inset-0 z-0 opacity-[0.045] [background-image:radial-gradient(circle_at_center,rgba(239,232,215,0.78)_1px,transparent_1px)] [background-size:18px_18px]" />
+      <div className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(circle_at_16%_10%,rgba(169,185,155,0.18),transparent_30%),radial-gradient(circle_at_88%_2%,rgba(216,199,166,0.15),transparent_34%)]" />
+
+      <main className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col px-6 py-8 md:px-12">
+        <header className="flex items-center justify-between">
+          <a href="/kikuba/" className="flex items-center gap-3" aria-label="Kikuba inicio">
+            <span className="logo-mark-frame" aria-hidden="true">
+              <img src={kikubaLogo} alt="" className="logo-mark-image" />
+            </span>
+            <span className="text-sm font-semibold uppercase tracking-[0.34em] text-[#EFE8D7] md:text-base">
+              Kikuba
+            </span>
+          </a>
+          <span className="hidden rounded-full border border-[#EFE8D7]/12 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.18em] text-[#EFE8D7]/58 sm:inline-flex">
+            Acceso temprano
+          </span>
+        </header>
+
+        <section className="grid flex-1 items-center gap-12 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:py-20">
+          <motion.div
+            className="max-w-3xl"
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <small className="font-mono text-xs uppercase tracking-[0.24em] text-[#A9B99B]">
+              Diagnósticos iniciales
+            </small>
+            <h1 className="mt-6 font-serif text-5xl leading-[0.96] tracking-tight text-[#EFE8D7] md:text-7xl">
+              Kikuba está tomando forma.
+            </h1>
+            <p className="mt-7 max-w-2xl text-xl font-light leading-relaxed text-[#D8C7A6] md:text-2xl">
+              Tecnología práctica para negocios que quieren operar con menos desorden.
+            </p>
+            <div className="mt-8 max-w-2xl space-y-5 text-base font-light leading-8 text-[#EFE8D7]/74 md:text-lg">
+              <p>
+                Estamos abriendo los primeros diagnósticos para negocios pequeños que trabajan con WhatsApp, Instagram, Excel, notas sueltas o procesos manuales.
+              </p>
+              <p>
+                Antes de construir una página, app o automatización, revisamos cómo trabaja tu operación y detectamos qué conviene ordenar primero.
+              </p>
+            </div>
+            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+              <a
+                href={earlyAccessFormHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-full bg-[#EFE8D7] px-6 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-[#25302B] transition-all duration-300 hover:bg-[#A9B99B]"
+              >
+                Quiero un diagnóstico inicial
+              </a>
+              <a
+                href="/kikuba/"
+                className="inline-flex items-center justify-center rounded-full border border-[#EFE8D7]/20 px-6 py-4 text-sm font-medium uppercase tracking-[0.14em] text-[#EFE8D7] transition-all duration-300 hover:border-[#EFE8D7]/40 hover:bg-[#EFE8D7]/8"
+              >
+                Ver sitio de Kikuba
+              </a>
+            </div>
+          </motion.div>
+
+          <motion.aside
+            className="rounded-[2rem] border border-[#EFE8D7]/10 bg-[#25302B]/52 p-6 shadow-[0_24px_90px_rgba(0,0,0,0.22)] md:p-8"
+            initial={{ opacity: 0, scale: 0.97 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.12, duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="mb-8 flex items-center justify-between gap-6">
+              <div>
+                <p className="font-mono text-xs uppercase tracking-[0.22em] text-[#A9B99B]">
+                  Señales
+                </p>
+                <h2 className="mt-3 font-serif text-3xl tracking-tight text-[#EFE8D7]">
+                  Tal vez ya toca ordenar.
+                </h2>
+              </div>
+              <div className="hidden h-16 w-16 shrink-0 items-center justify-center rounded-full bg-[#EFE8D7] sm:flex">
+                <img src={kikubaLogo} alt="Logo Kikuba" className="h-14 w-14 object-contain" />
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              {signals.map((signal, index) => (
+                <div
+                  key={signal}
+                  className="flex gap-4 border-t border-[#EFE8D7]/10 pt-4"
+                >
+                  <span className="font-mono text-xs text-[#D8C7A6]">0{index + 1}</span>
+                  <p className="text-sm leading-7 text-[#EFE8D7]/76 md:text-base">
+                    {signal}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </motion.aside>
+        </section>
+      </main>
     </div>
   );
 }
